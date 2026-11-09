@@ -2,3 +2,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
+input[type="file"] {
+  font-size: 12px;
+  color: #94a3b8;
+}
