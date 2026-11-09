@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Roboto  } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/navbar/navbar";
+import Navbar from "@/components/navbar/Navbar";
+import Footer from "@/components/footer/Footer";
 
 const roboto = Roboto ({
   variable: "--font-Redaction-10",
@@ -19,9 +20,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={roboto.className}
     >
-      <body className="min-h-full my-22 flex flex-col">
+      <body className="min-h-full  mt-33 flex flex-col">
         <Navbar/>
         {children}
+        <Footer/>
       </body>
     </html>
   );
