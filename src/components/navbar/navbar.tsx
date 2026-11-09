@@ -10,9 +10,9 @@ const Navbar = () => {
   
 
   return (
-    <div className="fixed top-0 w-full z-50 bg-gray-50 shadow-xl border border-b-2 "> 
+    <div className="fixed top-0 w-full z-50 bg-gray-50 shadow-xl "> 
       <div className="container mx-auto flex justify-between items-center text-center py-2 px-3    ">
-        <Link href="/" className="text-4xl font-extrabold text-cyan-700">
+        <Link href="/" className="text-4xl font-extrabold text-cyan-600 transition-all duration-400 hover:scale-105 hover:text-cyan-700">
           MediQueue
         </Link>
         <div className="flex gap-3 text-gray-700 ">
@@ -76,7 +76,7 @@ const Navbar = () => {
             
             // : 
             <Link href={"/login"}>
-              <Button className={"cursor-pointer"}>Login</Button>
+              <Button className={"cursor-pointer bg-cyan-600 text-white transform transition-all ease-in-out duration-300 hover:scale-110 hover:bg-cyan-700" }>Login</Button>
             </Link>
 
           }
