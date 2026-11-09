@@ -1,44 +1,47 @@
 "use client";
 
-import { FaGithub, FaGoogle } from "react-icons/fa";
+import { FaGithub } from "react-icons/fa";
 import { Button } from "../ui/button";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import Link from "next/link";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
+  const handleLogin = async () => {};
 
-  const handleLogin = async () => {
-    
-  }
+  const handleGoogleLogin = async () => {};
 
-  const handleGoogleLogin = async () => {
-    
-  }
-
-  const handleGithubLogin = async () => {
-
-  }
+  const handleGithubLogin = async () => {};
 
   return (
-    <div className="mt-26 my-16 min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-md border border-gray-300 rounded-2xl p-8 shadow-lg">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden  px-4 py-16 ">
+
+      {/* Login Card */}
+      <div className="relative z-10 w-full max-w-md rounded-3xl border border-cyan-200/50 bg-white/90 p-7 shadow-xl shadow-cyan-900/5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-900/10 sm:p-9 ">
         
-        {/* Heading */}
-        <div className="text-center mb-6">
-          <h1 className="text-3xl font-bold">Login</h1>
-          <p className="text-gray-500 mt-2">
-            Welcome back! Please login to your account.
+        <div className="mb-7 flex flex-col items-center">
+
+          <h1 className="text-3xl font-extrabold tracking-tight text-slate-800">
+            Welcome Back!
+          </h1>
+
+          <p className="mt-2 text-center text-sm text-slate-500">
+            Login to continue your MediQueue journey.
           </p>
         </div>
 
         {/* Form */}
         <form onSubmit={handleLogin}>
           <FieldGroup className="space-y-5">
-            
             {/* Email */}
-            <Field>
-              <FieldLabel htmlFor="email">Email</FieldLabel>
+            <Field className="gap-2">
+              <FieldLabel
+                htmlFor="email"
+                className="font-semibold text-slate-700"
+              >
+                Email Address
+              </FieldLabel>
 
               <Input
                 id="email"
@@ -46,16 +49,22 @@ const Login = () => {
                 type="email"
                 placeholder="name@example.com"
                 required
+                className="h-12 rounded-xl border-slate-200 bg-slate-50 px-4 transition-all focus-visible:border-cyan-500 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-cyan-500/20"
               />
 
-              <FieldDescription>
+              <FieldDescription className="text-xs text-slate-400">
                 Enter your registered email address.
               </FieldDescription>
             </Field>
 
             {/* Password */}
-            <Field>
-              <FieldLabel htmlFor="password">Password</FieldLabel>
+            <Field className="gap-2">
+              <FieldLabel
+                htmlFor="password"
+                className="font-semibold text-slate-700"
+              >
+                Password
+              </FieldLabel>
 
               <Input
                 id="password"
@@ -63,67 +72,74 @@ const Login = () => {
                 type="password"
                 placeholder="Enter your password"
                 required
+                className="h-12 rounded-xl border-slate-200 bg-slate-50 px-4 transition-all focus-visible:border-cyan-500 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-cyan-500/20"
               />
             </Field>
 
-            Forgot Password
+            {/* Forgot Password */}
             <div className="flex justify-end">
               <Link
                 href="/forgot-password"
-                className="text-sm text-blue-500 hover:underline"
+                className="text-sm font-semibold text-cyan-600 transition-colors hover:text-cyan-800 hover:underline"
               >
                 Forgot Password?
               </Link>
             </div>
 
             {/* Login Button */}
-            <Button type="submit" className="w-full cursor-pointer">
-              Login
+            <Button
+              type="submit"
+              className="h-12 w-full cursor-pointer rounded-xl bg-gradient-to-r from-cyan-500 to-cyan-500 text-base font-bold text-white shadow-lg shadow-cyan-500/20 transition-all duration-300 hover:scale-[1.02] hover:from-cyan-600 hover:to-cyan-600 hover:shadow-xl active:scale-[0.98]"
+            >
+              Login to Account
             </Button>
           </FieldGroup>
         </form>
 
         {/* Divider */}
-        <div className="flex items-center gap-3 my-6">
-          <div className="h-[1px] bg-gray-300 w-full"></div>
-          <p className="text-sm text-gray-500">OR</p>
-          <div className="h-[1px] bg-gray-300 w-full"></div>
+        <div className="my-7 flex items-center gap-4">
+          <div className="h-px flex-1 bg-slate-200" />
+          <span className="text-xs font-semibold tracking-widest text-slate-400">
+            OR CONTINUE WITH
+          </span>
+          <div className="h-px flex-1 bg-slate-200" />
         </div>
 
         {/* Social Login */}
-        <div className="space-y-3">
-          
-          {/* Google */}
+        <div className="grid grid-cols-2 gap-3">
           <Button
+            type="button"
             onClick={handleGoogleLogin}
             variant="outline"
-            className="w-full flex items-center gap-2 cursor-pointer"
+            className="h-12 cursor-pointer rounded-xl border-slate-200 bg-white font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:bg-cyan-50 hover:shadow-md"
           >
-            <FaGoogle />
-            Login with Google
+            <FcGoogle className="mr-2 text-lg" />
+            Google
           </Button>
 
-          {/* Github */}
           <Button
+            type="button"
             onClick={handleGithubLogin}
             variant="outline"
-            className="w-full flex items-center gap-2 cursor-pointer"
+            className="h-12 cursor-pointer rounded-xl border-slate-200 bg-white font-semibold text-slate-700 transition-all duration-300 hover:-translate-y-1 hover:border-slate-400 hover:bg-slate-100 hover:shadow-md"
           >
-            <FaGithub />
-            Login with Github
+            <FaGithub className="mr-2 text-lg" />
+            Github
           </Button>
         </div>
 
         {/* Register Redirect */}
-        <p className="text-center text-sm text-gray-600 mt-6">
-          Don&apos;t have an account?{" "}
-          <Link
-            href="/register"
-            className="text-blue-500 font-medium hover:underline"
-          >
-            Register
-          </Link>
-        </p>
+        <div className="mt-8 border-t border-slate-100 pt-6 text-center">
+          <p className="text-sm text-slate-500">
+            Don&apos;t have an account?
+            <Link
+              href="/register"
+              className="ml-1 font-bold text-cyan-600 transition-colors hover:text-cyan-800 hover:underline"
+            >
+              Create Account
+            </Link>
+          </p>
+        </div>
       </div>
     </div>
   );
