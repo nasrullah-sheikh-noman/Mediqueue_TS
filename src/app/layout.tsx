@@ -20,8 +20,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={roboto.className}
     >
-      <body className="min-h-full  mt-33 flex flex-col">
-        <Navbar/>
+      <body className="min-h-full flex flex-col">
+        <Navbar />
         {children}
         <Footer/>
       </body>
