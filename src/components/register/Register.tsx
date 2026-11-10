@@ -75,23 +75,27 @@ const Register = () => {
     } 
 
     try {
-      const result = await authClient.signUp.email({
+      const {data, error} = await authClient.signUp.email({
         email: user.email as string,
         password: user.password as string,
         name: user.name as string,
         image: photoUrl as string,
         callbackURL: "/login",
       });
-      if (result.error) {
-        toast.error("Registration failed!");
-        console.log("register error", result.error);
+      if (error) {
+        toast.error(error.message || "Registraion failed!");
+        console.log("register error", error);
       } else {
         toast.success("Registration Successful.");
-        console.log("register data", result.data);
+        console.log("register data", data);
       }
-    } catch (err) {
-      toast.error("Registration failed!");
-      console.log("register error", err);
+    } catch (err: unknown) {
+      console.log("register error 2", err);
+      if (err instanceof Error) {
+        toast.error(err.message);
+      } else {
+        toast.error("Registration failed!");
+      }
     }
 
   };
