@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import { usePathname } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import Spinner from "./Spinner";
+import UserDataInDrawer from "./UserDataInDrawer";
 
 const Navbar = () => {
   const pathName = usePathname();
@@ -86,13 +87,11 @@ const Navbar = () => {
               </div>
             :
             user ?
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2">
               <h2 className="text-lg font-semibold">{user?.name}</h2>
               <div>
-                {/* <UserDataInDrawer user={user}/> */}
-                user    
+                <UserDataInDrawer user={user}/>
               </div>
-              <div>Logout</div>
             </div>
 
             :
