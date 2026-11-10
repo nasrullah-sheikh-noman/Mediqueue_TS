@@ -8,9 +8,53 @@ import Link from "next/link";
 import { FaUser } from "react-icons/fa6";
 import { MdEmail, MdLock } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "sonner";
+
+const validPassword = (password: string, confirmPassword: string): string | null => {
+
+  if (password.length < 8) {
+    return "Password must be at least 8 charecters.";
+  }
+
+  if (!/[A-Z]/.test(password)) {
+    return "Password must contain at least on uppercase letter.";
+  }
+
+  if (!/[a-z]/.test(password)) {
+    return "Password must contain at least on lowercase letter.";
+  }
+
+  if (!/[0-9]/.test(password)) {
+    return "Password must contain at least on number.";
+  }
+
+  if (!/[!@#$%^&*(),./<>?;:'"|{}=+\-\\`_\[\]~]/.test(password)) {
+    return "Password must contain at least on special charecter.";
+  }
+    
+  if (password !== confirmPassword) {
+    return "Password do not match.";
+  }
+  return null;
+};
 
 const Register = () => {
-  const handleRegister = () => {};
+  const handleRegister = async(e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries());
+    // console.log("user data", user);
+    const password = user.password as string;
+    const confirmPassword = user.confirmPassword as string;
+
+    const error = validPassword(password, confirmPassword);
+    if (error) {
+      return toast.warning(error);
+    }
+
+    
+  };
 
   const handleGithubRegister = () => {};
 
@@ -125,13 +169,13 @@ const Register = () => {
                   type="password"
                   placeholder="Enter your password"
                   className="h-12 rounded-xl border-slate-200 bg-slate-50 pl-10 transition-all focus-visible:border-cyan-500 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-cyan-500/20"
-                  minLength={6}
+                  minLength={8}
                   required
                 />
               </div>
 
               <FieldDescription className="text-xs text-slate-400">
-                Use at least 6 characters for your password.
+                password must contain at least 8 characters, one uppercase, one lowercase, one number & one special charecter.
               </FieldDescription>
             </Field>
 
@@ -153,7 +197,7 @@ const Register = () => {
                   type="password"
                   placeholder="Confirm your password"
                   className="h-12 rounded-xl border-slate-200 bg-slate-50 pl-10 transition-all focus-visible:border-cyan-500 focus-visible:bg-white focus-visible:ring-2 focus-visible:ring-cyan-500/20"
-                  minLength={6}
+                  minLength={8}
                   required
                 />
               </div>
