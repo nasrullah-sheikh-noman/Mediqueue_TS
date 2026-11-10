@@ -67,18 +67,17 @@ const Register = () => {
       imageData.append("image", user.photo);
       const res = await axios.post(
         `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
-        imageData
+        imageData,
       );
       photoUrl = res.data.data.url;
       // console.log("Step 2: Image uploaded", photoUrl);
-      
-    } catch(error) {
+    } catch (error) {
       console.log("error", error);
       return toast.error("Image uploded failed!");
-    } 
+    }
 
     try {
-      const {data, error} = await authClient.signUp.email({
+      const { data, error } = await authClient.signUp.email({
         email: user.email as string,
         password: user.password as string,
         name: user.name as string,
@@ -100,12 +99,25 @@ const Register = () => {
         toast.error("Registration failed!");
       }
     }
-
   };
 
   const handleGithubRegister = () => {};
 
-  const handleGoogleRegister = () => {};
+  const handleGoogleRegister = async () => {
+    try {
+      const {data, error} = await authClient.signIn.social({
+        provider: "google",
+        callbackURL: '/',
+      });
+      if (!data) {
+        toast.error(error.message ?? "Google Signin failed!");
+      }
+    } catch (err: unknown) {
+      toast.error(
+        err instanceof Error ? err.message : "Google Signin failed!",
+      );
+    }
+  };
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden  px-4 py-16">

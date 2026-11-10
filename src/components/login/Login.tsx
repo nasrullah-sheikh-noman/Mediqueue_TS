@@ -24,7 +24,7 @@ const Login = () => {
       const { data, error } = await authClient.signIn.email({
         email: user.email as string,
         password: user.password as string,
-      })
+      });
       if (!data) {
         toast.error(error.message ?? "Login failed!");
         // console.log("Login error: ", error);
@@ -43,18 +43,27 @@ const Login = () => {
     }
   };
 
-  const handleGoogleLogin = async () => {};
+  const handleGoogleLogin = async () => {
+    try {
+      const { data, error } = await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+      if (!data) {
+        toast.error(error.message ?? "Google Signin failed!");
+      }
+    } catch (err: unknown) {
+      toast.error(err instanceof Error ? err.message : "Google Signin failed!");
+    }
+  };
 
   const handleGithubLogin = async () => {};
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden  px-4 py-16 ">
-
       {/* Login Card */}
       <div className="relative z-10 w-full max-w-md rounded-3xl border border-cyan-200/50 bg-white/90 p-7 shadow-xl shadow-cyan-900/5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-900/10 sm:p-9 ">
-        
         <div className="mb-7 flex flex-col items-center">
-
           <h1 className="text-3xl font-extrabold tracking-tight text-slate-800">
             Welcome Back!
           </h1>
