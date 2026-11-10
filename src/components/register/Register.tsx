@@ -11,6 +11,7 @@ import { FcGoogle } from "react-icons/fc";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 
 const validPassword = (
   password: string,
@@ -43,6 +44,8 @@ const validPassword = (
 };
 
 const Register = () => {
+  const router = useRouter();
+
   const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -80,17 +83,17 @@ const Register = () => {
         password: user.password as string,
         name: user.name as string,
         image: photoUrl as string,
-        callbackURL: "/login",
       });
-      if (error) {
+      if (!data) {
         toast.error(error.message || "Registraion failed!");
-        console.log("register error", error);
+        // console.log("register error", error);
       } else {
         toast.success("Registration Successful.");
-        console.log("register data", data);
+        router.push("/login");
+        // console.log("register data", data);
       }
     } catch (err: unknown) {
-      console.log("register error 2", err);
+      // console.log("register error 2", err);
       if (err instanceof Error) {
         toast.error(err.message);
       } else {

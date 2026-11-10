@@ -6,9 +6,42 @@ import { Field, FieldDescription, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { authClient } from "@/lib/auth-client";
 
 const Login = () => {
-  const handleLogin = async () => {};
+  const router = useRouter();
+
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries());
+    // console.log("login user :", user);
+
+    try {
+      const { data, error } = await authClient.signIn.email({
+        email: user.email as string,
+        password: user.password as string,
+      })
+      if (!data) {
+        toast.error(error.message ?? "Login failed!");
+        console.log("Login error: ", error);
+      } else {
+        toast.success("Login Successfull.");
+        router.push("/");
+        console.log("Login data", data);
+      }
+    } catch (err: unknown) {
+      console.log("Login error 2", err);
+      if (err instanceof Error) {
+        toast.error(err.message);
+      } else {
+        toast.error("Login failed!");
+      }
+    }
+  };
 
   const handleGoogleLogin = async () => {};
 
