@@ -57,7 +57,19 @@ const Login = () => {
     }
   };
 
-  const handleGithubLogin = async () => {};
+  const handleGithubLogin = async () => {
+    try {
+      const { data, error } = await authClient.signIn.social({
+        provider: "github",
+        callbackURL: "/",
+      });
+      if (!data) {
+        toast.error(error.message ?? "Github SigIn Failed!");
+      }
+    } catch (err: unknown) {
+      toast.error(err instanceof Error ? err.message : "Github SignIn Failed!");
+    }
+  };
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden  px-4 py-16 ">

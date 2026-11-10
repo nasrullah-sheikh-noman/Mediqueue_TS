@@ -101,21 +101,31 @@ const Register = () => {
     }
   };
 
-  const handleGithubRegister = () => {};
+  const handleGithubRegister = async () => {
+    try {
+      const {data, error} = await authClient.signIn.social({
+        provider: "github",
+        callbackURL: "/",
+      });
+      if (!data) {
+        toast.error(error.message ?? "Github SigIn Failed!");
+      }
+    } catch (err: unknown) {
+      toast.error(err instanceof Error ? err.message : "Github SignIn Failed!");
+    }
+  };
 
   const handleGoogleRegister = async () => {
     try {
-      const {data, error} = await authClient.signIn.social({
+      const { data, error } = await authClient.signIn.social({
         provider: "google",
-        callbackURL: '/',
+        callbackURL: "/",
       });
       if (!data) {
         toast.error(error.message ?? "Google Signin failed!");
       }
     } catch (err: unknown) {
-      toast.error(
-        err instanceof Error ? err.message : "Google Signin failed!",
-      );
+      toast.error(err instanceof Error ? err.message : "Google Signin failed!");
     }
   };
 
