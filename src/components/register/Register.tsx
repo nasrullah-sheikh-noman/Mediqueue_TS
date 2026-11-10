@@ -8,7 +8,7 @@ import Link from "next/link";
 import { FaUser } from "react-icons/fa6";
 import { MdEmail, MdLock } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
-import { toast } from "sonner";
+import toast from 'react-hot-toast';
 
 const validPassword = (password: string, confirmPassword: string): string | null => {
 
@@ -50,10 +50,8 @@ const Register = () => {
 
     const error = validPassword(password, confirmPassword);
     if (error) {
-      return toast.warning(error);
+      return toast.error(error);
     }
-
-    
   };
 
   const handleGithubRegister = () => {};
