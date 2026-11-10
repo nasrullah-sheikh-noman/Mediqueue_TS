@@ -99,10 +99,6 @@ const UserDataInDrawer = ({ user }: UserDataInDrawerProps) => {
 
           <div className="relative z-10 flex flex-col items-center gap-3">
 
-            <DrawerTitle className="text-lg font-bold tracking-wide text-white">
-              My Profile
-            </DrawerTitle>
-
             <div className="relative">
               <Avatar className="h-24 w-24 border-4 border-white/80 shadow-xl">
                 <AvatarImage
