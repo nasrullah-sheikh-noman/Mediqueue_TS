@@ -27,14 +27,14 @@ const Login = () => {
       })
       if (!data) {
         toast.error(error.message ?? "Login failed!");
-        console.log("Login error: ", error);
+        // console.log("Login error: ", error);
       } else {
         toast.success("Login Successfull.");
         router.push("/");
-        console.log("Login data", data);
+        // console.log("Login data", data);
       }
     } catch (err: unknown) {
-      console.log("Login error 2", err);
+      // console.log("Login error 2", err);
       if (err instanceof Error) {
         toast.error(err.message);
       } else {
