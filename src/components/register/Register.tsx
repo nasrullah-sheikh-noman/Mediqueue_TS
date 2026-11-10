@@ -8,10 +8,14 @@ import Link from "next/link";
 import { FaUser } from "react-icons/fa6";
 import { MdEmail, MdLock } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
+import axios from "axios";
+import { authClient } from "@/lib/auth-client";
 
-const validPassword = (password: string, confirmPassword: string): string | null => {
-
+const validPassword = (
+  password: string,
+  confirmPassword: string,
+): string | null => {
   if (password.length < 8) {
     return "Password must be at least 8 charecters.";
   }
@@ -31,7 +35,7 @@ const validPassword = (password: string, confirmPassword: string): string | null
   if (!/[!@#$%^&*(),./<>?;:'"|{}=+\-\\`_\[\]~]/.test(password)) {
     return "Password must contain at least on special charecter.";
   }
-    
+
   if (password !== confirmPassword) {
     return "Password do not match.";
   }
@@ -39,19 +43,57 @@ const validPassword = (password: string, confirmPassword: string): string | null
 };
 
 const Register = () => {
-  const handleRegister = async(e: React.FormEvent<HTMLFormElement>) => {
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData(e.currentTarget);
     const user = Object.fromEntries(formData.entries());
     // console.log("user data", user);
+    let photoUrl = "";
     const password = user.password as string;
     const confirmPassword = user.confirmPassword as string;
 
-    const error = validPassword(password, confirmPassword);
-    if (error) {
-      return toast.error(error);
+    const passwordError = validPassword(password, confirmPassword);
+    if (passwordError) {
+      return toast.error(passwordError);
     }
+
+    try {
+      // console.log("Step 1: Uploading image");
+      const imageData = new FormData();
+      imageData.append("image", user.photo);
+      const res = await axios.post(
+        `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
+        imageData
+      );
+      photoUrl = res.data.data.url;
+      // console.log("Step 2: Image uploaded", photoUrl);
+      
+    } catch(error) {
+      console.log("error", error);
+      return toast.error("Image uploded failed!");
+    } 
+
+    try {
+      const result = await authClient.signUp.email({
+        email: user.email as string,
+        password: user.password as string,
+        name: user.name as string,
+        image: photoUrl as string,
+        callbackURL: "/login",
+      });
+      if (result.error) {
+        toast.error("Registration failed!");
+        console.log("register error", result.error);
+      } else {
+        toast.success("Registration Successful.");
+        console.log("register data", result.data);
+      }
+    } catch (err) {
+      toast.error("Registration failed!");
+      console.log("register error", err);
+    }
+
   };
 
   const handleGithubRegister = () => {};
@@ -60,13 +102,10 @@ const Register = () => {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden  px-4 py-16">
-
       {/* Register Card */}
       <div className="relative z-10 w-full max-w-md rounded-3xl border border-white/80 bg-white/90 p-7 shadow-xl shadow-cyan-900/5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-900/10 sm:p-9">
         {/* Heading */}
         <div className="mb-8 flex flex-col items-center text-center">
-          
-
           <h1 className="text-3xl font-extrabold tracking-tight text-slate-800">
             Create Account
           </h1>
@@ -119,7 +158,6 @@ const Register = () => {
                 required
                 className="h-12 cursor-pointer rounded-xl border-slate-200 bg-slate-50 file:mr-3 file:cursor-pointer file:rounded-lg file:border-0 file:bg-cyan-50 file:px-3 file:py-1 file:text-sm file:font-semibold file:text-cyan-700 "
               />
-              
 
               <FieldDescription className="text-xs text-slate-400">
                 Upload a profile picture (JPG, PNG).
@@ -173,7 +211,8 @@ const Register = () => {
               </div>
 
               <FieldDescription className="text-xs text-slate-400">
-                password must contain at least 8 characters, one uppercase, one lowercase, one number & one special charecter.
+                password must contain at least 8 characters, one uppercase, one
+                lowercase, one number & one special charecter.
               </FieldDescription>
             </Field>
 
