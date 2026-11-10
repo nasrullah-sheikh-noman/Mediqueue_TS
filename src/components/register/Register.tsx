@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import Link from "next/link";
-import { FaGoogle, FaUser } from "react-icons/fa6";
+import { FaUser } from "react-icons/fa6";
 import { MdEmail, MdLock } from "react-icons/md";
 import { FcGoogle } from "react-icons/fc";
 
@@ -17,7 +17,7 @@ const Register = () => {
   const handleGoogleRegister = () => {};
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-slate-50 px-4 py-16">
+    <div className="relative flex min-h-screen items-center justify-center overflow-hidden  px-4 py-16">
 
       {/* Register Card */}
       <div className="relative z-10 w-full max-w-md rounded-3xl border border-white/80 bg-white/90 p-7 shadow-xl shadow-cyan-900/5 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-cyan-900/10 sm:p-9">
