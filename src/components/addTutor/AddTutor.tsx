@@ -187,20 +187,20 @@ const AddTutor = () => {
                 <Select
                   required
                   value={subject}
-                  onValueChange={setSubject}
+                  onValueChange={(value) => setSubject(value ?? "")}
                 >
                   <SelectTrigger className="h-11 rounded-lg border-slate-200 bg-slate-50/50 transition-all duration-200 focus:ring-2 focus:ring-cyan-500">
                     <SelectValue placeholder="Select subject" />
                   </SelectTrigger>
 
-                  <SelectContent>
-                    <SelectItem value="math">Mathematics</SelectItem>
-                    <SelectItem value="physics">Physics</SelectItem>
-                    <SelectItem value="chemistry">Chemistry</SelectItem>
-                    <SelectItem value="english">English</SelectItem>
-                    <SelectItem value="biology">Biology</SelectItem>
-                    <SelectItem value="higher-math">Higher Math</SelectItem>
-                    <SelectItem value="ict">ICT</SelectItem>
+                  <SelectContent className="bg-white border border-slate-200 rounded-xl p-2 shadow-lg">
+                    <SelectItem value="math" className="rounded-lg focus:bg-cyan-50 focus:text-cyan-900 cursor-pointer py-2">Mathematics</SelectItem>
+                    <SelectItem value="physics" className="rounded-lg focus:bg-cyan-50 focus:text-cyan-900 cursor-pointer py-2">Physics</SelectItem>
+                    <SelectItem value="chemistry" className="rounded-lg focus:bg-cyan-50 focus:text-cyan-900 cursor-pointer py-2">Chemistry</SelectItem>
+                    <SelectItem value="english" className="rounded-lg focus:bg-cyan-50 focus:text-cyan-900 cursor-pointer py-2">English</SelectItem>
+                    <SelectItem value="biology" className="rounded-lg focus:bg-cyan-50 focus:text-cyan-900 cursor-pointer py-2">Biology</SelectItem>
+                    <SelectItem value="higher-math" className="rounded-lg focus:bg-cyan-50 focus:text-cyan-900 cursor-pointer py-2">Higher Math</SelectItem>
+                    <SelectItem value="ict" className="rounded-lg focus:bg-cyan-50 focus:text-cyan-900 cursor-pointer py-2">ICT</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -220,16 +220,16 @@ const AddTutor = () => {
                 <Select
                   required
                   value={mode}
-                  onValueChange={setMode}
+                  onValueChange={(value) => setMode(value ?? "")}
                 >
                   <SelectTrigger className="h-11 rounded-lg border-slate-200 bg-slate-50/50 transition-all duration-200 focus:ring-2 focus:ring-cyan-500">
                     <SelectValue placeholder="Select mode" />
                   </SelectTrigger>
 
-                  <SelectContent>
-                    <SelectItem value="online">Online</SelectItem>
-                    <SelectItem value="offline">Offline</SelectItem>
-                    <SelectItem value="both">Both</SelectItem>
+                  <SelectContent className="bg-white border border-slate-200 rounded-xl p-2 shadow-lg">
+                    <SelectItem value="online" className="rounded-lg focus:bg-cyan-50 focus:text-cyan-900 cursor-pointer py-2">Online</SelectItem>
+                    <SelectItem value="offline" className="rounded-lg focus:bg-cyan-50 focus:text-cyan-900 cursor-pointer py-2">Offline</SelectItem>
+                    <SelectItem value="both" className="rounded-lg focus:bg-cyan-50 focus:text-cyan-900 cursor-pointer py-2">Both</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
